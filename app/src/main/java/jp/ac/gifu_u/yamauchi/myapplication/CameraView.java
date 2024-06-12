@@ -13,6 +13,7 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
         holder = getHolder();
         holder.addCallback(this);
+        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
 
     @Override
@@ -27,18 +28,14 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        if (cam != null) {
             cam.startPreview();
-        }
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        if (cam != null) {
             cam.setPreviewCallback(null);
             cam.stopPreview();
             cam.release();
             cam = null;
-        }
     }
 }
